@@ -162,6 +162,9 @@ def calibrate():
             st.write("ptt_values_c contains non-numeric values")
         else:
             st.write("ptt_values_c contains only numeric values")
+        st.write(ptt_values_c.shape)  # Should print (n,) where n > 1
+    
+
         
         def sbp_model(ptt, a, b, c):
             return a * (ptt ** -b) + c
