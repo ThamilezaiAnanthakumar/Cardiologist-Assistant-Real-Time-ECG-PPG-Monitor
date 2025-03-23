@@ -11,7 +11,7 @@ def upload_and_process_ecg():
     st.sidebar.header("About")
     st.sidebar.write("This application analyzes ECG and PPG signals, detecting heart rate conditions and AV blocks.")
     
-    st.image("heart.jpeg", use_column_width=True)
+    st.image("heart.jpg", use_column_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
     
