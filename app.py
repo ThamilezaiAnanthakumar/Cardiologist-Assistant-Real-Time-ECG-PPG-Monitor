@@ -154,6 +154,8 @@ def calibrate():
 
         if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
             st.write("ptt_values_c contains NaN or inf values")
+        else:
+            st.write("ok")
         
         def sbp_model(ptt, a, b, c):
             return a * (ptt ** -b) + c
