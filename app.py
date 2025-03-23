@@ -173,9 +173,9 @@ def calibrate():
             return d * (ptt ** -e) + f
 
         try:
-           #params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000)
-            params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
-            st.write("Fitting successful:", params_sbp)
+            params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000)
+           #params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
+           st.write("Fitting successful:", params_sbp)
         except Exception as e:
             st.write("Error during curve fitting:", e)
 
