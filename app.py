@@ -56,7 +56,7 @@ with st.sidebar:
         icons=["house", "info-circle", "envelope"],
         menu_icon="cast", default_index=0
     )
-
+st.title("📊 Cardiac Health Monitoring System")
 st.image("heart.jpg", use_container_width=True)
 ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
 ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
@@ -195,7 +195,7 @@ def main():
 
 
 if selected == "Home":
-    st.title("📊 Cardiac Health Monitoring System")
+    #st.title("📊 Cardiac Health Monitoring System")
     if __name__ == "__main__":
         main()
 # About Section
