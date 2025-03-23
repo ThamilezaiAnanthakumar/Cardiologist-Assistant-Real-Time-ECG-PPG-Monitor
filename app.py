@@ -156,6 +156,12 @@ def calibrate():
             st.write("ptt_values_c contains NaN or inf values")
         else:
             st.write("ok")
+        st.write(type(ptt_values_c)) 
+
+        if np.any(np.vectorize(lambda x: not isinstance(x, (int, float)))(ptt_values_c)):
+            st.write("ptt_values_c contains non-numeric values")
+        else:
+            st.write("ptt_values_c contains only numeric values")
         
         def sbp_model(ptt, a, b, c):
             return a * (ptt ** -b) + c
