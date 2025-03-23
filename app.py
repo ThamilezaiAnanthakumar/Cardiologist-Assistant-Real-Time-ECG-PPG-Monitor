@@ -151,7 +151,9 @@ def calibrate():
         st.write(ptt_values_c)
         st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
         st.write(f"Is array_1d 1D? {sbp_values_c.ndim == 1}")
-        
+
+        if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
+            st.write("ptt_values_c contains NaN or inf values")
         
         def sbp_model(ptt, a, b, c):
             return a * (ptt ** -b) + c
