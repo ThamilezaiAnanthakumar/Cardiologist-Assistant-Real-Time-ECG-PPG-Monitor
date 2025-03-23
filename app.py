@@ -6,11 +6,7 @@ import pandas as pd
 import scipy.optimize as opt
 from streamlit_option_menu import option_menu
 
-st.set_page_config(
-    page_title="Cardiac Health Monitoring System",
-    page_icon="📈",
-    layout="wide",
-)
+
 
 with st.sidebar:
     selected = option_menu(
@@ -20,6 +16,11 @@ with st.sidebar:
     )
 
 def upload_and_process_ecg():
+    st.set_page_config(
+        page_title="Cardiac Health Monitoring System",
+        page_icon="📈",
+        layout="wide",
+    )
     st.image("heart.jpg", use_container_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
