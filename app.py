@@ -6,6 +6,42 @@ import pandas as pd
 import scipy.optimize as opt
 from streamlit_option_menu import option_menu
 
+st.markdown("""
+    <style>
+        body {
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Ffree-stock-photo-of-human-heart-anatomical-rendering-on-dark-background--699535754615618586%2F&psig=AOvVaw1DAq5FVQDWOcCUPnFRa00a&ust=1742838942829000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJjU-5PjoIwDFQAAAAAdAAAAABAE'); /* Add your own background image */
+            background-size: cover;
+            color: white;
+        }
+        .sidebar .sidebar-content {
+            background-color: #1f1f1f;
+            color: white;
+        }
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            color: #ff6f61;
+        }
+        h2, h3 {
+            color: #ff6f61;
+        }
+        .stButton>button {
+            background-color: #ff6f61;
+            color: white;
+            border-radius: 5px;
+        }
+        .stButton>button:hover {
+            background-color: #ff3b30;
+        }
+        .stTextInput>div>input {
+            background-color: #333;
+            color: white;
+        }
+        .stFileUploader>label {
+            color: white;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 
 with st.sidebar:
