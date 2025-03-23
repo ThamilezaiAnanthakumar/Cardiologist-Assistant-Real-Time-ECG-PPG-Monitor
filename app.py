@@ -136,14 +136,19 @@ def classify_heart_rate(heart_rate):
 
 def calibrate():
     # Calibration for PTT, SBP, and DBP using uploaded files
-    ptt_file = st.file_uploader("Upload PTT Calibration CSV File", type="csv")
-    sbp_file = st.file_uploader("Upload SBP Calibration CSV File", type="csv")
-    dbp_file = st.file_uploader("Upload DBP Calibration CSV File", type="csv")
+    ptt_file_c = st.file_uploader("Upload PTT Calibration CSV File", type="csv")
+    sbp_file_c = st.file_uploader("Upload SBP Calibration CSV File", type="csv")
+    dbp_file_c = st.file_uploader("Upload DBP Calibration CSV File", type="csv")
     
     if ptt_file is not None and sbp_file is not None and dbp_file is not None:
-        ptt_values_c = pd.read_csv(ptt_file).to_numpy()
-        sbp_values_c = pd.read_csv(sbp_file).to_numpy()
-        dbp_values_c = pd.read_csv(dbp_file).to_numpy()
+        ptt_values_c = pd.read_csv(ptt_file_c).to_numpy()
+        sbp_values_c = pd.read_csv(sbp_file_c).to_numpy()
+        dbp_values_c = pd.read_csv(dbp_file_c).to_numpy()
+
+        st.write(f"Is array_1d 1D? {dbp_values_c.ndim == 1}")
+        st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
+        st.write(f"Is array_1d 1D? {sbp_values_c.ndim == 1}")
+        
         
         def sbp_model(ptt, a, b, c):
             return a * (ptt ** -b) + c
