@@ -56,10 +56,10 @@ with st.sidebar:
         icons=["house", "info-circle", "envelope"],
         menu_icon="cast", default_index=0
     )
+ecg_rate=None
 
 def upload_and_process_ecg():
     st.image("heart.jpg", use_container_width=True)
-    ecg_rate=None
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
     
