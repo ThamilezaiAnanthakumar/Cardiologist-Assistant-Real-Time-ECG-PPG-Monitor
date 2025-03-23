@@ -57,12 +57,12 @@ with st.sidebar:
         menu_icon="cast", default_index=0
     )
 
-
+st.image("heart.jpg", use_container_width=True)
 ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
 ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
         
 def upload_and_process_ecg():
-    st.image("heart.jpg", use_container_width=True)
+    #st.image("heart.jpg", use_container_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
     
@@ -92,7 +92,7 @@ def upload_and_process_ecg():
         ax.grid()
         st.pyplot(fig)
         
-        return ecg_data, ppg_data, ecg_rate, ppg_rate
+        return ecg_data, ppg_data  #, ecg_rate, ppg_rate
     return None, None, None, None
 
 def process_ecg(ecg_data, ecg_rate):
