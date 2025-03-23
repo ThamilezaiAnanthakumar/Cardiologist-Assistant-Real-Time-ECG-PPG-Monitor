@@ -93,7 +93,9 @@ def upload_and_process_ecg():
     return None, None, None, None
 
 def process_ecg(ecg_data, ecg_rate):
-    st.write(ecg_rate)
+    #st.write(ecg_rate)
+    if ecg_data.ndim > 1:
+        ecg_data = ecg_data[:, 0]
     signals, info = nk.ecg_process(ecg_data, sampling_rate=ecg_rate)
     r_peaks = info["ECG_R_Peaks"]
     delineate_signal, delineate_info = nk.ecg_delineate(ecg_data, rpeaks=r_peaks, sampling_rate=ecg_rate, method="dwt")
