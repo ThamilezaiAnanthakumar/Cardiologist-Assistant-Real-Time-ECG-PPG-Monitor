@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import scipy.optimize as opt
+from streamlit_option_menu import option_menu
 
 with st.sidebar:
     selected = option_menu(
