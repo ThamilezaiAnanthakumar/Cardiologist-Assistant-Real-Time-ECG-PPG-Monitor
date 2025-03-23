@@ -6,11 +6,12 @@ import pandas as pd
 import scipy.optimize as opt
 
 def upload_and_process_ecg():
-    st.set_page_config(page_title="ECG & PPG Analysis", page_icon="❤️")
-    st.title("📊 ECG & PPG Analysis")
+    st.set_page_config(page_title=" Cardiac Health Monitoring System", page_icon="📈")
+    st.title("📊 Cardiac Health Monitoring System")
     st.sidebar.header("About")
     st.sidebar.write("This application analyzes ECG and PPG signals, detecting heart rate conditions and AV blocks.")
     
+    st.image("heart.jpeg", use_column_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
     
@@ -57,8 +58,8 @@ def process_ecg(ecg_data, ecg_rate):
     
     return pr_interval, r_peaks
 
-def classify_av_block(pr_interval, r_peaks, fs=250):
-    rr_intervals = np.diff(r_peaks) / fs
+def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
+    rr_intervals = np.diff(r_peaks) / ecg_rate
     
     if pr_interval > 0.2 and all(rr_intervals > 0.6):  
         return "First-Degree AV Block"
