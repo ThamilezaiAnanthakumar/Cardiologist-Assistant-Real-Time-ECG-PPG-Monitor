@@ -56,8 +56,11 @@ with st.sidebar:
         icons=["house", "info-circle", "envelope"],
         menu_icon="cast", default_index=0
     )
-ecg_rate=None
 
+
+ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
+ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
+        
 def upload_and_process_ecg():
     st.image("heart.jpg", use_container_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
@@ -67,8 +70,8 @@ def upload_and_process_ecg():
         ecg_data = pd.read_csv(ecg_file).to_numpy()
         ppg_data = pd.read_csv(ppg_file).to_numpy()
         
-        ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
-        ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
+        #ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
+        #ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
         
         time = np.linspace(0, len(ecg_data)/ecg_rate, len(ecg_data))
         
