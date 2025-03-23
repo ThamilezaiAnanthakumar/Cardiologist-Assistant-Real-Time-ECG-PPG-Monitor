@@ -20,11 +20,6 @@ with st.sidebar:
     )
 
 def upload_and_process_ecg():
-    st.set_page_config(page_title=" Cardiac Health Monitoring System", page_icon="📈")
-    st.title("📊 Cardiac Health Monitoring System")
-    st.sidebar.header("About")
-    st.sidebar.write("This application analyzes ECG and PPG signals, detecting heart rate conditions and AV blocks.")
-    
     st.image("heart.jpg", use_container_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
