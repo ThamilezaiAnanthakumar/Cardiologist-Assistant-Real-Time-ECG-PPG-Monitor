@@ -167,7 +167,7 @@ def calibrate():
         return None, None, None, None, None, None
 
 def main():
-    ecg_data, ppg_data ''', ecg_rate, ppg_rate''' = upload_and_process_ecg()
+    ecg_data, ppg_data  = upload_and_process_ecg() #, ecg_rate, ppg_rate
     
     if ecg_data is not None:
         pr_interval, r_peaks = process_ecg(ecg_data, ecg_rate)
