@@ -140,7 +140,7 @@ def calibrate():
     sbp_file_c = st.file_uploader("Upload SBP Calibration CSV File", type="csv")
     dbp_file_c = st.file_uploader("Upload DBP Calibration CSV File", type="csv")
     
-    if ptt_file is not None and sbp_file is not None and dbp_file is not None:
+    if ptt_file_c is not None and sbp_file_c is not None and dbp_file_c is not None:
         ptt_values_c = pd.read_csv(ptt_file_c).to_numpy()
         sbp_values_c = pd.read_csv(sbp_file_c).to_numpy()
         dbp_values_c = pd.read_csv(dbp_file_c).to_numpy()
