@@ -5,13 +5,20 @@ import streamlit as st
 import pandas as pd
 import scipy.optimize as opt
 
+with st.sidebar:
+    selected = option_menu(
+        "Menu", ["Home", "About", "Contact"],
+        icons=["house", "info-circle", "envelope"],
+        menu_icon="cast", default_index=0
+    )
+
 def upload_and_process_ecg():
     st.set_page_config(page_title=" Cardiac Health Monitoring System", page_icon="📈")
     st.title("📊 Cardiac Health Monitoring System")
     st.sidebar.header("About")
     st.sidebar.write("This application analyzes ECG and PPG signals, detecting heart rate conditions and AV blocks.")
     
-    st.image("heart.jpg", use_column_width=True)
+    st.image("heart.jpg", use_container_width=True)
     ecg_file = st.file_uploader("Upload ECG CSV File", type="csv")
     ppg_file = st.file_uploader("Upload PPG CSV File", type="csv")
     
@@ -138,5 +145,38 @@ def main():
         st.sidebar.header("Contact")
         st.sidebar.write("For support, contact: Tamil | Email: tamil@example.com")
 
-if __name__ == "__main__":
-    main()
+
+if selected == "Home":
+    if __name__ == "__main__":
+        main()
+# About Section
+elif selected == "About":
+    st.title("📌 About")
+    st.write(
+        "This skin disease prediction app is designed to assist healthcare professionals and individuals "
+        "in identifying common skin diseases. The model is trained on a diverse dataset and can predict "
+        "the following conditions with high accuracy:"
+    )
+    st.write("- Cellulitis\n- Impetigo\n- Athlete's Foot\n- Nail Fungus\n- Ringworm")
+    st.write("- Cutaneous Larva Migrans\n- Chickenpox\n- Shingles\n- Normal Skin")
+    st.write(
+        "This project leverages convolutional neural networks (CNNs) for accurate classification "
+        "and aims to provide quick preliminary analysis, aiding in faster medical intervention."
+    )
+
+# Contact Section
+elif selected == "Contact":
+    st.title("📞 Contact")
+    st.write(
+        "For inquiries, collaborations, or feedback, please reach out to us through the following channels:" 
+    )
+    st.write("- **Email:** thamilezaiananthakumar@gmail.com")
+    st.write("- **Phone:** +940762934089")
+    st.write("- **GitHub:** [Thamilezai Ananthakumar](https://github.com/ThamilezaiAnanthakumar)")
+    st.write("- **LinkedIn:** [Thamilezai Ananthakumar](https://www.linkedin.com/in/thamilezai-ananthakumar-387a922a4)")
+
+# Footer
+st.markdown("""
+---
+Developed with ❤️ by Thamilezai Ananthakumar
+""")
