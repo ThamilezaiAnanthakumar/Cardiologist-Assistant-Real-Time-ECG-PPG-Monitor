@@ -93,7 +93,7 @@ def upload_and_process_ecg():
         st.pyplot(fig)
         
         return ecg_data, ppg_data  #, ecg_rate, ppg_rate
-    return None, None, None, None
+    return None, None #, None, None
 
 def process_ecg(ecg_data, ecg_rate):
     #st.write(ecg_rate)
