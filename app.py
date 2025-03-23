@@ -71,7 +71,6 @@ def upload_and_process_ecg():
         
         time = np.linspace(0, len(ecg_data)/ecg_rate, len(ecg_data))
         
-        st.image("heart_image.png", use_column_width=True)
         
         fig, ax = plt.subplots(figsize=(10, 4))
         ax.plot(time, ecg_data, label="ECG Signal")
@@ -105,8 +104,8 @@ def process_ecg(ecg_data, ecg_rate):
     
     return pr_interval, r_peaks
 
-def classify_av_block(pr_interval, r_peaks, fs=250):
-    rr_intervals = np.diff(r_peaks) / 250
+def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
+    rr_intervals = np.diff(r_peaks) / ecg_rate
     
     if pr_interval > 0.2 and all(rr_intervals > 0.6):  
         return "First-Degree AV Block"
