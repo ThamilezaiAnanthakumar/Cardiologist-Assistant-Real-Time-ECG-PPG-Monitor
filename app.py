@@ -144,7 +144,9 @@ def calibrate():
         ptt_values_c = pd.read_csv(ptt_file_c).to_numpy()
         sbp_values_c = pd.read_csv(sbp_file_c).to_numpy()
         dbp_values_c = pd.read_csv(dbp_file_c).to_numpy()
-
+        ptt_values_c = ptt_values_c.flatten()
+        sbp_values_c = sbp_values_c.flatten()
+        dbp_values_c = dbp_values_c.flatten()
         st.write(f"Is array_1d 1D? {dbp_values_c.ndim == 1}")
         st.write(ptt_values_c)
         st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
