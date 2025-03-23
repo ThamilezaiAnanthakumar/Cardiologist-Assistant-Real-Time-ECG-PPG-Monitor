@@ -6,6 +6,12 @@ import pandas as pd
 import scipy.optimize as opt
 from streamlit_option_menu import option_menu
 
+st.set_page_config(
+    page_title="Cardiac Health Monitoring System",
+    page_icon="📈",
+    layout="wide",
+)
+
 with st.sidebar:
     selected = option_menu(
         "Menu", ["Home", "About", "Contact"],
