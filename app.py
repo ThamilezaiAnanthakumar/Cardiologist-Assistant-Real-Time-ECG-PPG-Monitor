@@ -58,8 +58,8 @@ def process_ecg(ecg_data, ecg_rate):
     
     return pr_interval, r_peaks
 
-def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
-    rr_intervals = np.diff(r_peaks) / ecg_rate
+def classify_av_block(pr_interval, r_peaks, fs=250):
+    rr_intervals = np.diff(r_peaks) / 250
     
     if pr_interval > 0.2 and all(rr_intervals > 0.6):  
         return "First-Degree AV Block"
