@@ -98,6 +98,7 @@ def process_ecg(ecg_data, ecg_rate):
         ecg_data = ecg_data[:, 0]
     signals, info = nk.ecg_process(ecg_data, sampling_rate=ecg_rate)
     r_peaks = info["ECG_R_Peaks"]
+    st.write(len(r_peaks))
     delineate_signal, delineate_info = nk.ecg_delineate(ecg_data, rpeaks=r_peaks, sampling_rate=ecg_rate, method="dwt")
     
     p_onsets = delineate_info["ECG_P_Onsets"]
