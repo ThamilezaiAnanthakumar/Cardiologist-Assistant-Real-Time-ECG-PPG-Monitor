@@ -154,17 +154,17 @@ def calibrate():
         #st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
         #st.write(f"Is array_1d 1D? {sbp_values_c.ndim == 1}")
 
-        '''if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
-            st.write("ptt_values_c contains NaN or inf values")
-        else:
-            st.write("ok")
-        st.write(type(ptt_values_c)) 
+        #if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
+            #st.write("ptt_values_c contains NaN or inf values")
+        #else:
+            #st.write("ok")
+        #st.write(type(ptt_values_c)) 
 
-        if np.any(np.vectorize(lambda x: not isinstance(x, (int, float)))(ptt_values_c)):
-            st.write("ptt_values_c contains non-numeric values")
-        else:
-            st.write("ptt_values_c contains only numeric values")
-        st.write(ptt_values_c.shape)  # Should print (n,) where n > 1'''
+        #if np.any(np.vectorize(lambda x: not isinstance(x, (int, float)))(ptt_values_c)):
+            #st.write("ptt_values_c contains non-numeric values")
+        #else:
+            #st.write("ptt_values_c contains only numeric values")
+        #st.write(ptt_values_c.shape)  # Should print (n,) where n > 1'''
     
 
         
@@ -173,24 +173,24 @@ def calibrate():
 
         def dbp_model(ptt, d, e, f):
             return d * (ptt ** -e) + f
-
-        '''try:
-            params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 0, 0], maxfev=10000)
-           #params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
-            st.write("Fitting successful:", params_sbp)
-        except Exception as e:
-            st.write("Error during curve fitting:", e)'''
-
-
+            
         # Fit the models to find a, b, c (for SBP) and d, e, f (for DBP)
-        params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
-        params_dbp, _ = opt.curve_fit(dbp_model, ptt_values_c, dbp_values_c, p0=[1, 1, 60], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
+        try:
+            params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
+            params_dbp, _ = opt.curve_fit(dbp_model, ptt_values_c, dbp_values_c, p0=[1, 1, 60], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
+            a, b, c = params_sbp
+            d, e, f = params_dbp
 
-        a, b, c = params_sbp
-        d, e, f = params_dbp
+            st.write(f"Calibration successful! SBP model: SBP = {a:.2f} * PTT^(-{b:.2f}) + {c:.2f}")
+            st.write(f"Calibration successful! DBP model: DBP = {d:.2f} * PTT^(-{e:.2f}) + {f:.2f}")
+        except Exception as e:
+            st.write("Error during curve fitting:", e)
 
-        st.write(f"Calibration successful! SBP model: SBP = {a:.2f} * PTT^(-{b:.2f}) + {c:.2f}")
-        st.write(f"Calibration successful! DBP model: DBP = {d:.2f} * PTT^(-{e:.2f}) + {f:.2f}")
+
+       
+
+        #st.write(f"Calibration successful! SBP model: SBP = {a:.2f} * PTT^(-{b:.2f}) + {c:.2f}")
+        #st.write(f"Calibration successful! DBP model: DBP = {d:.2f} * PTT^(-{e:.2f}) + {f:.2f}")
         
         return a, b, c, d, e, f
     else:
