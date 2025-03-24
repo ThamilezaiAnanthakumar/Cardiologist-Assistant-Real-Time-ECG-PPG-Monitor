@@ -98,29 +98,64 @@ def upload_and_process_ecg():
         return ecg_data, ppg_data  #, ecg_rate, ppg_rate
     return None, None #, None, None
 
-def process_ecg(ecg_data, ecg_rate):
+def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     #st.write(ecg_rate)
     ecg_data = ecg_data.flatten()
     #if ecg_data.ndim > 1:
         #ecg_data = ecg_data[:, 0]
     signals, info = nk.ecg_process(ecg_data, sampling_rate=ecg_rate)
     r_peaks = info["ECG_R_Peaks"]
+
+    r_sec=r_peaks/ecg_rate
     #st.write(r_peaks)
+    # Delineate ECG waves (find onsets and offsets)
     delineate_signal, delineate_info = nk.ecg_delineate(ecg_data, rpeaks=r_peaks, sampling_rate=ecg_rate, method="dwt")
-    
+
+    # Extract P-Peaks P-wave onset and offset
     p_onsets = delineate_info["ECG_P_Onsets"]
+    p_offsets = delineate_info["ECG_P_Offsets"]
+    p_peaks = delineate_info["ECG_P_Peaks"]
+    
+    # Extract R onset and offset
     r_onsets = delineate_info["ECG_R_Onsets"]
+    r_offsets = delineate_info["ECG_R_Offsets"]
+    
+    #print(q_peaks)
+    #print(r_onsets)
+    #print(p_offsets)
+    
+    # Extract T-Peaks T-wave onset and offset
+    t_onsets = delineate_info["ECG_T_Onsets"]
+    t_offsets = delineate_info["ECG_T_Offsets"]
+    t_peaks = delineate_info["ECG_T_Peaks"]
+    
+    # Extract Q Peaks ans peaks 
+    q_peaks = delineate_info["ECG_Q_Peaks"]
+    s_peaks = delineate_info["ECG_S_Peaks"]
+
+
+    _, ppg_info = nk.ppg_process(ppg_signal, sampling_rate=ppg_rate)
+
+    # Get PPG peaks (pulse waves)
+    ppg_peaks = ppg_info["PPG_Peaks"]
+
+    ppg_sec=ppg_peaks/ppg_rate
+
+    # Compute Pulse Transit Time (PTT) - Time difference between R-peaks and PPG peaks
+    ptt_values = np.array([ppg_sec[i] - r_sec[i] for i in range(min(len(r_sec), len(ppg_sec)))])    # Convert to seconds
+    ptt_value=np.mean(ptt_values)
+
     pr_intervals = np.array(r_onsets) - np.array(p_onsets)
     pr_intervals = pr_intervals[~np.isnan(pr_intervals)]
     pr_interval = np.mean(pr_intervals / ecg_rate) if len(pr_intervals) > 0 else 0
     
-    return pr_interval, r_peaks
+    return pr_interval, r_peaks,ppt_value
 
 def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
     #st.write(ecg_rate)
     rr_intervals = np.diff(r_peaks) / ecg_rate
     
-    if pr_interval > 0.2 and all(rr_intervals > 0.6):  
+    if pr_interval > 0.2 and all(rr_intervals > 0.6): 
         return "First-Degree AV Block"
     for i in range(1, len(rr_intervals)):
         if rr_intervals[i] > 1.2:
@@ -204,14 +239,16 @@ def main():
     ecg_data, ppg_data  = upload_and_process_ecg() #, ecg_rate, ppg_rate
     
     if ecg_data is not None:
-        pr_interval, r_peaks = process_ecg(ecg_data, ecg_rate)
+        pr_interval, r_peaks, ptt_value = process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate )
         classification = classify_av_block(pr_interval, r_peaks, ecg_rate)
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
+        st.subheader("ECG Analysis Parameters")
+        st.write(f"PR Interval : {pr_value}")
         
         st.subheader("ECG Analysis Results")
         st.write(f"AV Block Classification: {classification}")
-        st.write(f"Heart Rate: {heart_rate:.2f} BPM ({heart_rate_classification})")
+        st.write(f"Heart Rate: {heart_rate:.2f} BPM  ({heart_rate_classification})")
         
         if pr_interval == 0:
             st.warning("Calibration Required: Please check ECG signal quality.")
