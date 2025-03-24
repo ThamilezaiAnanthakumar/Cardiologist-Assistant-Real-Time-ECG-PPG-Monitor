@@ -97,11 +97,12 @@ def upload_and_process_ecg():
 
 def process_ecg(ecg_data, ecg_rate):
     #st.write(ecg_rate)
-    if ecg_data.ndim > 1:
-        ecg_data = ecg_data[:, 0]
+    ecg_data = ecg_data.flatten()
+    '''if ecg_data.ndim > 1:
+        ecg_data = ecg_data[:, 0]'''
     signals, info = nk.ecg_process(ecg_data, sampling_rate=ecg_rate)
     r_peaks = info["ECG_R_Peaks"]
-    st.write(r_peaks)
+    #st.write(r_peaks)
     delineate_signal, delineate_info = nk.ecg_delineate(ecg_data, rpeaks=r_peaks, sampling_rate=ecg_rate, method="dwt")
     
     p_onsets = delineate_info["ECG_P_Onsets"]
@@ -144,15 +145,16 @@ def calibrate():
         ptt_values_c = pd.read_csv(ptt_file_c).to_numpy()
         sbp_values_c = pd.read_csv(sbp_file_c).to_numpy()
         dbp_values_c = pd.read_csv(dbp_file_c).to_numpy()
+        
         ptt_values_c = ptt_values_c.flatten()
         sbp_values_c = sbp_values_c.flatten()
         dbp_values_c = dbp_values_c.flatten()
-        st.write(f"Is array_1d 1D? {dbp_values_c.ndim == 1}")
-        st.write(ptt_values_c)
-        st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
-        st.write(f"Is array_1d 1D? {sbp_values_c.ndim == 1}")
+        #st.write(f"Is array_1d 1D? {dbp_values_c.ndim == 1}")
+        #st.write(ptt_values_c)
+        #st.write(f"Is array_1d 1D? {ptt_values_c.ndim == 1}")
+        #st.write(f"Is array_1d 1D? {sbp_values_c.ndim == 1}")
 
-        if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
+        '''if np.any(np.isnan(ptt_values_c)) or np.any(np.isinf(ptt_values_c)):
             st.write("ptt_values_c contains NaN or inf values")
         else:
             st.write("ok")
@@ -162,7 +164,7 @@ def calibrate():
             st.write("ptt_values_c contains non-numeric values")
         else:
             st.write("ptt_values_c contains only numeric values")
-        st.write(ptt_values_c.shape)  # Should print (n,) where n > 1
+        st.write(ptt_values_c.shape)  # Should print (n,) where n > 1'''
     
 
         
@@ -172,12 +174,12 @@ def calibrate():
         def dbp_model(ptt, d, e, f):
             return d * (ptt ** -e) + f
 
-        try:
+        '''try:
             params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 0, 0], maxfev=10000)
            #params_sbp, _ = opt.curve_fit(sbp_model, ptt_values_c, sbp_values_c, p0=[1, 1, 100], maxfev=10000, bounds=([0, 0, 0], [np.inf, np.inf, np.inf]))
             st.write("Fitting successful:", params_sbp)
         except Exception as e:
-            st.write("Error during curve fitting:", e)
+            st.write("Error during curve fitting:", e)'''
 
 
         # Fit the models to find a, b, c (for SBP) and d, e, f (for DBP)
