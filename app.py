@@ -256,7 +256,7 @@ def main():
         a, b, c, d, e, f = calibrate()  # Calibrate for PTT, SBP, DBP
         
         if a is not None and b is not None and c is not None:
-            ptt_value = np.mean(np.diff(ppg_data))  # Example for PTT calculation (replace with actual calculation)
+            #ptt_value = np.mean(np.diff(ppg_data))  # Example for PTT calculation (replace with actual calculation)
             predicted_sbp = a * (ptt_value ** -b) + c
             predicted_dbp = d * (ptt_value ** -e) + f
             st.write(f"Predicted Blood Pressure: {predicted_sbp:.2f}/{predicted_dbp:.2f} mmHg")
