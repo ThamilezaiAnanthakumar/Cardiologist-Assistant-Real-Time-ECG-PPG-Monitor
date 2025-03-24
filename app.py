@@ -51,6 +51,7 @@ st.markdown("""
 
 
 with st.sidebar:
+    st.image("https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png", width=150)
     selected = option_menu(
         "Menu", ["Home", "About", "Contact"],
         icons=["house", "info-circle", "envelope"],
