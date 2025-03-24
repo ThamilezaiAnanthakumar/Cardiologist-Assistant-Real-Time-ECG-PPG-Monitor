@@ -133,8 +133,8 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     q_peaks = delineate_info["ECG_Q_Peaks"]
     s_peaks = delineate_info["ECG_S_Peaks"]
 
-
-    _, ppg_info = nk.ppg_process(ppg_signal, sampling_rate=ppg_rate)
+    ppg_data=ppg_data.flatten()
+    _, ppg_info = nk.ppg_process(ppg_data, sampling_rate=ppg_rate)
 
     # Get PPG peaks (pulse waves)
     ppg_peaks = ppg_info["PPG_Peaks"]
