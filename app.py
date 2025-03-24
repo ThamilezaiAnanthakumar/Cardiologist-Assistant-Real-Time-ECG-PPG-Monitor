@@ -51,7 +51,7 @@ st.markdown("""
 
 
 with st.sidebar:
-    st.image("ecg_2.jpg", width=150)
+    st.image("ecg_2.jpg", width=200)
     selected = option_menu(
         "Menu", ["Home", "About", "Contact"],
         icons=["house", "info-circle", "envelope"],
@@ -256,14 +256,14 @@ def main():
         heart_rate_classification = classify_heart_rate(heart_rate)
         st.subheader("ECG Analysis Parameters")
         st.write("")
-        st.write(f"PR Interval : :blue[{pr_interval}]")
+        st.write(f"  🩺PR Interval : :blue[{pr_interval}]")
         st.write("")
         st.write("")
         st.subheader("**ECG Analysis Results**")
         st.write("")
-        st.write(f"AV Block Classification: :green[{classification}]")
+        st.write(f"  🩺AV Block Classification: :green[{classification}]")
         st.write("")
-        st.write(f"Heart Rate: :red[{heart_rate:.2f}] BPM  (:blue[{heart_rate_classification}])")
+        st.write(f"   🩺Heart Rate: :red[{heart_rate:.2f}] BPM 🩺 (:blue[{heart_rate_classification}])")
 
         st.write("")
         
@@ -276,7 +276,7 @@ def main():
             #ptt_value = np.mean(np.diff(ppg_data))  # Example for PTT calculation (replace with actual calculation)
             predicted_sbp = a * (ptt_value ** -b) + c
             predicted_dbp = d * (ptt_value ** -e) + f
-            st.write(f"Predicted Blood Pressure: {predicted_sbp:.2f}/{predicted_dbp:.2f} mmHg")
+            st.write(f"Predicted Blood Pressure: :red[{predicted_sbp:.2f}/{predicted_dbp:.2f} mmHg]")
         
         #st.sidebar.header("Contact")
         #st.sidebar.write("For support, contact: Tamil | Email: tamil@example.com")
@@ -294,17 +294,35 @@ if selected == "Home":
 # About Section
 elif selected == "About":
     st.title("📌 About")
+
+    st.subheader("🩺 **Advanced ECG & PPG Signal Analysis for Cardiovascular Health**")
+    
     st.write(
-        "This skin disease prediction app is designed to assist healthcare professionals and individuals "
-        "in identifying common skin diseases. The model is trained on a diverse dataset and can predict "
-        "the following conditions with high accuracy:"
+        "This project focuses on the **real-time analysis** of :blue[ECG (Electrocardiogram)] and "
+        ":green[PPG (Photoplethysmogram)] signals, enabling early detection of **cardiac abnormalities** "
+        "and **personalized blood pressure estimation**. It is designed for **healthcare professionals** "
+        "and **researchers** to enhance cardiovascular assessments using **digital signal processing (DSP)** "
+        "and **biomedical engineering advancements**."
     )
-    st.write("- Cellulitis\n- Impetigo\n- Athlete's Foot\n- Nail Fungus\n- Ringworm")
-    st.write("- Cutaneous Larva Migrans\n- Chickenpox\n- Shingles\n- Normal Skin")
+    
+    st.subheader("🔍 **Key Features & Capabilities:**")
+    st.write("- ✅ **Heart Rate Analysis:** Detects **Tachycardia** (⚠️ High Heart Rate) & **Bradycardia** (⚠️ Low Heart Rate)")
+    st.write("- ✅ **ECG Interval Analysis:** Examines **PR Interval, QRS Complex, and QT Interval** for cardiac health")
+    st.write("- ✅ **AV Nodal Blockage Detection:** Identifies **Atrioventricular (AV) block conditions** for early diagnosis")
+    st.write("- ✅ **ECG-PPG Calibration:** Utilizes **individualized calibration** to estimate **Blood Pressure (BP)**")
+    st.write("- ✅ **Digital Signal Processing (DSP):** Leverages **advanced filtering & feature extraction techniques**")
+    
+    st.subheader("🔬 **Future Advancements:**")
+    st.write("- 🚀 **Large-scale ECG & PPG Analysis** for population-based cardiovascular research")
+    st.write("- 🚀 **Large-scale ECG & PPG Analysis** for population-based cardiovascular research")
+    st.write("- 🧠 **AI-Driven Predictions** using **Deep Learning & Machine Learning models**")
+    st.write("- 📡 **Cloud & IoT Integration** for remote health monitoring and real-time analysis")
+    
     st.write(
-        "This project leverages convolutional neural networks (CNNs) for accurate classification "
-        "and aims to provide quick preliminary analysis, aiding in faster medical intervention."
+        "**This system aims to revolutionize biosignal processing by enhancing accuracy, efficiency, "
+        "and real-time diagnostics for cardiovascular health monitoring.**"
     )
+
 
 # Contact Section
 elif selected == "Contact":
