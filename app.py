@@ -72,8 +72,9 @@ def upload_and_process_ecg():
         
         #ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
         #ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
+        maximum=max(len(ecg_data),len(ppg_data))
         
-        time = np.linspace(0, len(ecg_data)/ecg_rate, len(ecg_data))
+        time = np.linspace(0, len(ecg_data)/ecg_rate,maximum)
         
         
         fig, ax = plt.subplots(figsize=(10, 4))
