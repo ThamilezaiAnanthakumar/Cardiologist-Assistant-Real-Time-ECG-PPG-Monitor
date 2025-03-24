@@ -244,7 +244,7 @@ def main():
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
         st.subheader("ECG Analysis Parameters")
-        st.write(f"PR Interval : {pr_value}")
+        st.write(f"PR Interval : {pr_interval}")
         
         st.subheader("ECG Analysis Results")
         st.write(f"AV Block Classification: {classification}")
