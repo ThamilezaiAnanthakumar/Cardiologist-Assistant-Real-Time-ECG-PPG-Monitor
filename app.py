@@ -51,7 +51,7 @@ st.markdown("""
 
 
 with st.sidebar:
-    st.image("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Fpremium-vector%2Fneon-heart-beat-ecg-ekg-seamless-black-line-blue-background_23151597.htm&psig=AOvVaw0eeeCpLiRqEkbmraL7rLYn&ust=1742875918106000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOiMifLsoYwDFQAAAAAdAAAAABAR", width=150)
+    st.image("ecg.avif", width=150)
     selected = option_menu(
         "Menu", ["Home", "About", "Contact"],
         icons=["house", "info-circle", "envelope"],
