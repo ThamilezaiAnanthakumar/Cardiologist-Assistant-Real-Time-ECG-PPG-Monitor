@@ -152,7 +152,7 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     
     return pr_interval, r_peaks, ptt_value
 
-def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
+def classify_av_block(pr_interval, r_peaks, ecg_rate):
     #st.write(ecg_rate)
     rr_intervals = np.diff(r_peaks) / ecg_rate
     
