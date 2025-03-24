@@ -220,8 +220,18 @@ def calibrate():
             a, b, c = params_sbp
             d, e, f = params_dbp
 
-            st.write(f"Calibration successful! SBP model: SBP = {a:.2f} * PTT^(-{b:.2f}) + {c:.2f}")
-            st.write(f"Calibration successful! DBP model: DBP = {d:.2f} * PTT^(-{e:.2f}) + {f:.2f}")
+            #st.write(f"Calibration successful! SBP model: SBP = {a:.2f} * PTT^(-{b:.2f}) + {c:.2f}")
+            #st.write(f"Calibration successful! DBP model: DBP = {d:.2f} * PTT^(-{e:.2f}) + {f:.2f}")
+
+            st.write(f"✅ **:green[Calibration successful!]**")
+            st.write(f"**SBP model:** SBP = :yellow[{a:.2f}] * PTT^(-:red[{b:.2f}]) + :blue[{c:.2f}]")
+
+            # Add vertical space
+            st.write("")
+            st.write("")  # More spaces if needed
+            
+            st.write(f"✅ **:orange[Calibration successful!]**")
+            st.write(f"**DBP model:** DBP = :yellow[{d:.2f}] * PTT^(-:red[{e:.2f}]) + :blue[{f:.2f}]")
         except Exception as e:
             st.write("Error during curve fitting:", e)
 
@@ -245,11 +255,15 @@ def main():
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
         st.subheader("ECG Analysis Parameters")
+        st.write("")
         st.write(f"PR Interval : {pr_interval}")
-        
-        st.subheader("ECG Analysis Results")
-        st.write(f"AV Block Classification: {classification}")
-        st.write(f"Heart Rate: {heart_rate:.2f} BPM  ({heart_rate_classification})")
+        st.write("")
+        st.write("")
+        st.subheader("**ECG Analysis Results**")
+        st.write("")
+        st.write(f"AV Block Classification: :yellow[{classification}]")
+        st.write("")
+        st.write(f"Heart Rate: :red[{heart_rate:.2f}] BPM  (:blue[{heart_rate_classification}])")
         
         if pr_interval == 0:
             st.warning("Calibration Required: Please check ECG signal quality.")
