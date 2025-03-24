@@ -149,7 +149,7 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     pr_intervals = pr_intervals[~np.isnan(pr_intervals)]
     pr_interval = np.mean(pr_intervals / ecg_rate) if len(pr_intervals) > 0 else 0
     
-    return pr_interval, r_peaks,ppt_value
+    return pr_interval, r_peaks, ptt_value
 
 def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
     #st.write(ecg_rate)
