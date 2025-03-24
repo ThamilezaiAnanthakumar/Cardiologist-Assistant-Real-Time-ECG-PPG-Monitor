@@ -256,7 +256,7 @@ def main():
         heart_rate_classification = classify_heart_rate(heart_rate)
         st.subheader("ECG Analysis Parameters")
         st.write("")
-        st.write(f"PR Interval : :blue{pr_interval}")
+        st.write(f"PR Interval : :blue[{pr_interval}]")
         st.write("")
         st.write("")
         st.subheader("**ECG Analysis Results**")
