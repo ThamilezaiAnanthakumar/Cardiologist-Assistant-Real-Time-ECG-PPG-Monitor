@@ -221,8 +221,8 @@ def main():
             predicted_dbp = d * (ptt_value ** -e) + f
             st.write(f"Predicted Blood Pressure: {predicted_sbp:.2f}/{predicted_dbp:.2f} mmHg")
         
-        st.sidebar.header("Contact")
-        st.sidebar.write("For support, contact: Tamil | Email: tamil@example.com")
+        #st.sidebar.header("Contact")
+        #st.sidebar.write("For support, contact: Tamil | Email: tamil@example.com")
 
 
 if selected == "Home":
