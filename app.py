@@ -72,13 +72,15 @@ def upload_and_process_ecg():
         
         #ecg_rate = st.number_input("Enter ECG Sampling Rate", min_value=1, value=250)
         #ppg_rate = st.number_input("Enter PPG Sampling Rate", min_value=1, value=250)
-        maximum=min(len(ecg_data),len(ppg_data))
+        #maximum=min(len(ecg_data),len(ppg_data))
         
-        time = np.linspace(0, len(ecg_data)/ecg_rate,maximum)
+        time_ecg = np.linspace(0, len(ecg_data)/ecg_rate,len(ecg_data))
+        time_ppg = np.linspace(0, len(ecg_data)/ecg_rate,len(ppg_data))
+        
         
         
         fig, ax = plt.subplots(figsize=(10, 4))
-        ax.plot(time, ecg_data, label="ECG Signal")
+        ax.plot(time_ecg, ecg_data, label="ECG Signal")
         ax.set_title("ECG Signal Visualization")
         ax.set_xlabel("Time (s)")
         ax.set_ylabel("Amplitude")
@@ -86,7 +88,7 @@ def upload_and_process_ecg():
         st.pyplot(fig)
         
         fig, ax = plt.subplots(figsize=(10, 4))
-        ax.plot(time, ppg_data, label="PPG Signal", color='red')
+        ax.plot(time_ppg, ppg_data, label="PPG Signal", color='red')
         ax.set_title("PPG Signal Visualization")
         ax.set_xlabel("Time (s)")
         ax.set_ylabel("Amplitude")
