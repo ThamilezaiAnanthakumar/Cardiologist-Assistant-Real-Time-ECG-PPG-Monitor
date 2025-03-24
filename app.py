@@ -98,8 +98,8 @@ def upload_and_process_ecg():
 def process_ecg(ecg_data, ecg_rate):
     #st.write(ecg_rate)
     ecg_data = ecg_data.flatten()
-    '''if ecg_data.ndim > 1:
-        ecg_data = ecg_data[:, 0]'''
+    #if ecg_data.ndim > 1:
+        #ecg_data = ecg_data[:, 0]
     signals, info = nk.ecg_process(ecg_data, sampling_rate=ecg_rate)
     r_peaks = info["ECG_R_Peaks"]
     #st.write(r_peaks)
@@ -114,7 +114,7 @@ def process_ecg(ecg_data, ecg_rate):
     return pr_interval, r_peaks
 
 def classify_av_block(pr_interval, r_peaks, fs=ecg_rate):
-    st.write(ecg_rate)
+    #st.write(ecg_rate)
     rr_intervals = np.diff(r_peaks) / ecg_rate
     
     if pr_interval > 0.2 and all(rr_intervals > 0.6):  
