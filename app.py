@@ -152,6 +152,69 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     
     return pr_interval, r_peaks, ptt_value
 
+def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks ):
+  qt_intervals=(np.array(t_offsets)-np.array(r_onsets))
+  qt_intervals = qt_intervals[~np.isnan(qt_intervals)]
+  qt_interval=np.mean(qt_intervals/ecg_rate)  if len(qt_intervals) > 0 else 0
+
+  rr_interval=np.mean(np.diff(r_peaks) / ecg_rate)
+
+  pr_intervals=(np.array(r_onsets)-np.array(p_onsets))
+  pr_intervals = pr_intervals[~np.isnan(pr_intervals)]
+  pr_interval=np.mean(pr_intervals/ecg_rate) if len(pr_intervals) > 0 else 0
+
+  pr_segments=(np.array(r_onsets)-np.array(p_offsets))
+  pr_segments = pr_segments[~np.isnan(pr_segments)]
+  pr_segment=np.mean(pr_segments/ecg_rate) if len(pr_segments) > 0 else 0
+
+  st_segments=(np.array(t_onsets)-np.array(r_offsets))
+  st_segments = st_segments[~np.isnan(st_segments)]
+  st_segment=np.mean(st_segments/ecg_rate) if len(st_segments) > 0 else 0
+
+  tp_segments=(np.array(p_onsets[1:])-np.array(t_offsets[:-1]))
+  tp_segments = tp_segments[~np.isnan(tp_segments)]
+  tp_segment=np.mean(tp_segments/ecg_rate) if len(tp_segments) > 0 else 0
+
+  p_waves=(np.array(p_offsets)-np.array(p_onsets))
+  p_waves = p_waves[~np.isnan(p_waves)]
+  p_wave =np.mean(p_waves/ecg_rate) if len(p_waves) > 0 else 0
+
+  qrs_waves=(np.array(r_offsets)-np.array(r_onsets))
+  qrs_waves = qrs_waves[~np.isnan(qrs_waves)]
+  qrs_wave =np.mean(qrs_waves/ecg_rate) if len(qrs_waves) > 0 else 0
+
+  t_waves=(np.array(t_offsets)-np.array(t_onsets))
+  t_waves= t_waves[~np.isnan(t_waves)]
+  t_wave=np.mean(t_waves/ecg_rate) if len(t_waves) > 0 else 0
+
+  r_amplitudes = ecg_signal[r_peaks]
+  p_amplitudes = ecg_signal[p_peaks]
+  t_amplitudes = ecg_signal[t_peaks]
+
+  r_amplitudes = r_amplitudes[~np.isnan(r_amplitudes)]
+  p_amplitudes = p_amplitudes[~np.isnan(p_amplitudes)]
+  t_amplitudes = t_amplitudes[~np.isnan(t_amplitudes)]
+
+  p_wave_a =np.mean(r_amplitudes) if len(r_amplitudes) > 0 else 0
+  t_wave_a =np.mean(p_amplitudes) if len(p_amplitudes) > 0 else 0
+  r_wave_a =np.mean(t_amplitudes) if len(t_amplitudes) > 0 else 0
+
+  return qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave
+
+def ecg_componets_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
+  st.write("QT Interval:", green[qt_interval])
+  st.write("RR Interval:", green[rr_interval])
+  st.write("PR Interval:", green[pr_interval])
+  st.write("PR Segment:", blue[pr_segment])
+  st.write("ST Segment:", blue[st_segment])
+  st.write("TP Segment:", blue[tp_segment])
+  st.write("P Wave Amplitude:", red[p_wave_a])
+  st.write("R Wave Amplitude:", red[r_wave_a])
+  st.write("T Wave Amplitude:", red[t_wave_a])
+  st.write("P Wave:", violet[p_wave])
+  st.write("QRS Wave:", violet[qrs_wave])
+  st.write("T Wave:", violet[t_wave])
+    
 def classify_av_block(pr_interval, r_peaks, ecg_rate):
     #st.write(ecg_rate)
     rr_intervals = np.diff(r_peaks) / ecg_rate
@@ -254,6 +317,7 @@ def main():
         classification = classify_av_block(pr_interval, r_peaks, ecg_rate)
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
+        qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave = value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks)
         st.subheader("ECG Analysis Parameters")
         st.write("")
         st.write(f"  🩺PR Interval : :blue[{pr_interval}]")
@@ -266,7 +330,7 @@ def main():
         st.write(f"   🩺Heart Rate: :red[{heart_rate:.2f}] BPM 🩺 (:blue[{heart_rate_classification}])")
 
         st.write("")
-        
+
         if pr_interval == 0:
             st.warning("Calibration Required: Please check ECG signal quality.")
         
