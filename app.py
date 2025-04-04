@@ -201,8 +201,10 @@ def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets
 
   return qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave
 
-def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment,
-                                 p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
+def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
+
+    st.write("")
+
     st.subheader("📊 ECG Components Overview")
 
     col1, col2, col3, col4 = st.columns(4)
