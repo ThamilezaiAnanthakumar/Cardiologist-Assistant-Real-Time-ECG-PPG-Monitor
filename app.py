@@ -358,8 +358,8 @@ if selected == "Home":
 elif selected == "ECG & Typical Values":
     st.title("ECG & Typical Values")
     st.subheader("🩺 **Annotation of ECG Componets and its Typical Values**")
-    st.image("ecg.jpg", width=500)
-    st.image("range.jpg", width=500)
+    st.image("Anotation.jpg", width=500)
+    st.image("values.jpg", width=500)
 # About Section
 elif selected == "About":
     st.title("📌 About")
