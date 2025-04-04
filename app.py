@@ -152,7 +152,7 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     
     return pr_interval, r_peaks, ptt_value, t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, p_peaks, t_peaks
 
-def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks ):
+def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks, ecg_data ):
   qt_intervals=(np.array(t_offsets)-np.array(r_onsets))
   qt_intervals = qt_intervals[~np.isnan(qt_intervals)]
   qt_interval=np.mean(qt_intervals/ecg_rate)  if len(qt_intervals) > 0 else 0
@@ -187,9 +187,9 @@ def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets
   t_waves= t_waves[~np.isnan(t_waves)]
   t_wave=np.mean(t_waves/ecg_rate) if len(t_waves) > 0 else 0
 
-  r_amplitudes = ecg_signal[r_peaks]
-  p_amplitudes = ecg_signal[p_peaks]
-  t_amplitudes = ecg_signal[t_peaks]
+  r_amplitudes = ecg_data[r_peaks]
+  p_amplitudes = ecg_data[p_peaks]
+  t_amplitudes = ecg_data[t_peaks]
 
   r_amplitudes = r_amplitudes[~np.isnan(r_amplitudes)]
   p_amplitudes = p_amplitudes[~np.isnan(p_amplitudes)]
@@ -317,7 +317,7 @@ def main():
         classification = classify_av_block(pr_interval, r_peaks, ecg_rate)
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
-        qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave = value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks)
+        qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave = value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks, ecg_data)
         st.subheader("ECG Analysis Parameters")
         st.write("")
         st.write(f"  🩺PR Interval : :blue[{pr_interval}]")
