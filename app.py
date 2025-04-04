@@ -150,7 +150,7 @@ def process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate):
     pr_intervals = pr_intervals[~np.isnan(pr_intervals)]
     pr_interval = np.mean(pr_intervals / ecg_rate) if len(pr_intervals) > 0 else 0
     
-    return pr_interval, r_peaks, ptt_value
+    return pr_interval, r_peaks, ptt_value, t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, p_peaks, t_peaks
 
 def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks ):
   qt_intervals=(np.array(t_offsets)-np.array(r_onsets))
@@ -313,7 +313,7 @@ def main():
     ecg_data, ppg_data  = upload_and_process_ecg() #, ecg_rate, ppg_rate
     
     if ecg_data is not None:
-        pr_interval, r_peaks, ptt_value = process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate )
+        pr_interval, r_peaks, ptt_value, t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, p_peaks, t_peaks = process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate )
         classification = classify_av_block(pr_interval, r_peaks, ecg_rate)
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
