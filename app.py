@@ -53,7 +53,7 @@ st.markdown("""
 with st.sidebar:
     st.image("ecg_2.jpg", width=200)
     selected = option_menu(
-        "Menu", ["Home", "About", "Contact"],
+        "Menu", ["Home", "ECG & Typical Values", "About", "Contact"],
         icons=["house", "info-circle", "envelope"],
         menu_icon="cast", default_index=0
     )
