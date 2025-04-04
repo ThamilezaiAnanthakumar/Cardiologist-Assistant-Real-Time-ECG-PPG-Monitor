@@ -54,7 +54,7 @@ with st.sidebar:
     st.image("ecg_2.jpg", width=200)
     selected = option_menu(
         "Menu", ["Home", "ECG & Typical Values", "About", "Contact"],
-        icons=["house", "info-circle", "envelope"],
+        icons=["house", "info-circle", "info-circle", "envelope"],
         menu_icon="cast", default_index=0
     )
 #st.title("📊 Cardiac Health Monitoring System")
@@ -328,7 +328,9 @@ def main():
         st.write(f"  🩺AV Block Classification: :green[{classification}]")
         st.write("")
         st.write(f"   🩺Heart Rate: :red[{heart_rate:.2f}] BPM 🩺 (:blue[{heart_rate_classification}])")
-
+        st.write("")
+        st.write("")
+        ecg_componets_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave)
         st.write("")
 
         if pr_interval == 0:
@@ -358,7 +360,7 @@ if selected == "Home":
 elif selected == "ECG & Typical Values":
     st.title("ECG & Typical Values")
     st.subheader("🩺 **Annotation of ECG Componets and its Typical Values**")
-    st.image("Anotation.jpg", width=500)
+    st.image("Anotation.png", width=500)
     st.image("values.jpg", width=500)
 # About Section
 elif selected == "About":
