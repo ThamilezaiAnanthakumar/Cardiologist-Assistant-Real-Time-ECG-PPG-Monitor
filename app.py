@@ -201,19 +201,46 @@ def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets
 
   return qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave
 
-def ecg_componets_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
-  st.write("QT Interval:", green[qt_interval])
-  st.write("RR Interval:", green[rr_interval])
-  st.write("PR Interval:", green[pr_interval])
-  st.write("PR Segment:", blue[pr_segment])
-  st.write("ST Segment:", blue[st_segment])
-  st.write("TP Segment:", blue[tp_segment])
-  st.write("P Wave Amplitude:", red[p_wave_a])
-  st.write("R Wave Amplitude:", red[r_wave_a])
-  st.write("T Wave Amplitude:", red[t_wave_a])
-  st.write("P Wave:", violet[p_wave])
-  st.write("QRS Wave:", violet[qrs_wave])
-  st.write("T Wave:", violet[t_wave])
+def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment,
+                                 p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
+    st.subheader("📊 ECG Components Overview")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+                    f"<strong>QT Interval:</strong> {qt_interval}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+                    f"<strong>RR Interval:</strong> {rr_interval}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+                    f"<strong>PR Interval:</strong> {pr_interval}</div>", unsafe_allow_html=True)
+
+    with col2:
+        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+                    f"<strong>PR Segment:</strong> {pr_segment}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+                    f"<strong>ST Segment:</strong> {st_segment}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+                    f"<strong>TP Segment:</strong> {tp_segment}</div>", unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+                    f"<strong>P Wave Amplitude:</strong> {p_wave_a}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+                    f"<strong>R Wave Amplitude:</strong> {r_wave_a}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+                    f"<strong>T Wave Amplitude:</strong> {t_wave_a}</div>", unsafe_allow_html=True)
+
+    with col4:
+        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+                    f"<strong>P Wave:</strong> {p_wave}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+                    f"<strong>QRS Wave:</strong> {qrs_wave}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+                    f"<strong>T Wave:</strong> {t_wave}</div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+
     
 def classify_av_block(pr_interval, r_peaks, ecg_rate):
     #st.write(ecg_rate)
