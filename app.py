@@ -210,35 +210,35 @@ def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segmen
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#1709db; padding:10px; border-radius:10px;'>"
                     f"<strong>QT Interval:</strong> {qt_interval:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#1709db; padding:10px; border-radius:10px;'>"
                     f"<strong>RR Interval:</strong> {rr_interval:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#d0f0c0; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#1709db; padding:10px; border-radius:10px;'>"
                     f"<strong>PR Interval:</strong> {pr_interval:.2f}</div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#db0909; padding:10px; border-radius:10px;'>"
                     f"<strong>PR Segment:</strong> {pr_segment:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#db0909; padding:10px; border-radius:10px;'>"
                     f"<strong>ST Segment:</strong> {st_segment:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#add8e6; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#db0909; padding:10px; border-radius:10px;'>"
                     f"<strong>TP Segment:</strong> {tp_segment:.2f}</div>", unsafe_allow_html=True)
 
     with col3:
-        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#10db09; padding:10px; border-radius:10px;'>"
                     f"<strong>P Wave Amplitude:</strong> {p_wave_a:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#10db09; padding:10px; border-radius:10px;'>"
                     f"<strong>R Wave Amplitude:</strong> {r_wave_a:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#f4cccc; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#10db09; padding:10px; border-radius:10px;'>"
                     f"<strong>T Wave Amplitude:</strong> {t_wave_a:.2f}</div>", unsafe_allow_html=True)
 
     with col4:
-        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#dba709; padding:10px; border-radius:10px;'>"
                     f"<strong>P Wave:</strong> {p_wave:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#dba709; padding:10px; border-radius:10px;'>"
                     f"<strong>QRS Wave:</strong> {qrs_wave:.2f}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='background-color:#e6ccff; padding:10px; border-radius:10px;'>"
+        st.markdown(f"<div style='background-color:#dba709; padding:10px; border-radius:10px;'>"
                     f"<strong>T Wave:</strong> {t_wave:.2f}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
