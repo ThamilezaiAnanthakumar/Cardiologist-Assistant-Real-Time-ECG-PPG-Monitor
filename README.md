@@ -18,7 +18,7 @@ A real-time cardiac monitoring system built using **Raspberry Pi 4B**, **ECG/PPG
   - Dynamic heart rate updates
   - User-friendly interface for clinicians
 - 🛠️ **Raspberry Pi 4B** as the hardware backbone
-- 🧬 Future: Emotion detection and ML-based risk prediction
+- 🧬 Future: Heart Attack,Emotion detection and ML-based risk prediction
 
 ---
 
@@ -45,6 +45,13 @@ Check out the working web application:
 | Signal Analysis | NumPy, NeuroKit2            |
 | Visualization   | Streamlit, Matplotlib       |
 | Deployment      | Streamlit Cloud        |
+
+---
+
+## 📷 Sample Output
+
+
+![ECG Output](Assets/4.jpg)
 
 ---
 
