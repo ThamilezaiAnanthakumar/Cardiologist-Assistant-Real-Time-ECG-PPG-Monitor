@@ -24,7 +24,6 @@ A real-time cardiac monitoring system built using **Raspberry Pi 4B**, **ECG/PPG
 
 ## 🖼️ System Architecture
 
-> Upload your system diagram here (example below):
 
 ![System Architecture](images/system_architecture.png)
 
@@ -33,7 +32,7 @@ A real-time cardiac monitoring system built using **Raspberry Pi 4B**, **ECG/PPG
 ## 🌐 Live Web App
 
 Check out the working web application:  
-🔗 [**Streamlit App**](https://your-streamlit-link-here)
+🔗 [**Streamlit App**](https://ecg-and-ppg-analysis.streamlit.app/)
 
 ---
 
@@ -43,9 +42,9 @@ Check out the working web application:
 |----------------|------------------------------------|
 | Hardware        | Raspberry Pi 4B, ECG Sensor, IR PPG Sensor |
 | Programming     | Python                             |
-| Signal Analysis | NumPy, SciPy, NeuroKit2            |
-| Visualization   | Streamlit, Plotly/Matplotlib       |
-| Deployment      | Streamlit Cloud / Localhost        |
+| Signal Analysis | NumPy, NeuroKit2            |
+| Visualization   | Streamlit, Matplotlib       |
+| Deployment      | Streamlit Cloud        |
 
 ---
 
