@@ -25,7 +25,7 @@ A real-time cardiac monitoring system built using **Raspberry Pi 4B**, **ECG/PPG
 ## 🖼️ System Architecture
 
 
-![System Architecture](images/system_architecture.png)
+![System Architecture](Assets/6.jpg)
 
 ---
 
