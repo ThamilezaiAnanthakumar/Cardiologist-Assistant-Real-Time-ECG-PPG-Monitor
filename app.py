@@ -158,6 +158,8 @@ def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets
   qt_interval=np.mean(qt_intervals/ecg_rate)  if len(qt_intervals) > 0 else 0
 
   rr_interval=np.mean(np.diff(r_peaks) / ecg_rate)
+  PP_intervals= np.diff(p_peaks)/ecg_rate
+  PP_intervals= PP_intervals[~np.isnan(PP_intervals)]
 
   pr_intervals=(np.array(r_onsets)-np.array(p_onsets))
   pr_intervals = pr_intervals[~np.isnan(pr_intervals)]
@@ -199,7 +201,7 @@ def value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets
   t_wave_a =np.mean(p_amplitudes) if len(p_amplitudes) > 0 else 0
   r_wave_a =np.mean(t_amplitudes) if len(t_amplitudes) > 0 else 0
 
-  return qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave
+  return qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave,PP_intervals
 
 def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave):
 
@@ -244,20 +246,43 @@ def ecg_components_typical_lead(qt_interval, rr_interval, pr_interval, pr_segmen
     st.markdown("---")
 
     
-def classify_av_block(pr_interval, r_peaks, ecg_rate):
+def classify_av_block(pr_interval, r_peaks, ecg_rate,pr_intervals,r_peaks,p_peaks,PP_intervals):
     #st.write(ecg_rate)
-    rr_intervals = np.diff(r_peaks) / ecg_rate
+    rr_intervals = np.diff(r_peaks) / ecg_rate  #smapling rate
     
     if pr_interval > 0.2 and all(rr_intervals > 0.6): 
         return "First-Degree AV Block"
-    for i in range(1, len(rr_intervals)):
-        if rr_intervals[i] > 1.2:
-            return "Second-Degree AV Block (Mobitz I)"
-    if pr_interval > 0.2 and any(rr_intervals > 1.5):
+   # 1. Mobitz I (Wenckebach): PR interval increases then a beat is dropped (e.g., 4 P : 3 QRS)
+    pr_increasing = all(pr_intervals[i] > pr_intervals[i-1] for i in range(1, len(pr_intervals)))
+    p_q_ratio = len(r_peaks) / len(r_peaks)
+    
+    if pr_increasing and 1.2 < np.mean(rr_intervals) and round(p_q_ratio, 1) in [1.3, 1.4]:  # ~4:3
+        return "Second-Degree AV Block (Mobitz I)"
+
+    # 2. Mobitz II: PR interval is constant, but P:QRS = 2:1 or 3:1, and beats are dropped
+    pr_std = np.std(pr_intervals)
+    if pr_std < 0.03 and round(p_q_ratio) in [2, 3]:
         return "Second-Degree AV Block (Mobitz II)"
-    if np.std(rr_intervals) > 0.5:  
-        return "Third-Degree AV Block"
-    return "Normal ECG Pattern"
+
+    # 3. Third-Degree Block: No relation between P and QRS (very low correlation)
+    
+    # Step 1: Truncate to same length for correlation
+    min_len = min(len(PP_intervals), len(rr_intervals))
+    PP_intervals_ = PP_intervals[:min_len]
+    rr_intervals_ = rr_intervals[:min_len]
+    
+    # Step 2: Calculate correlation coefficient
+    correlation = np.corrcoef(PP_intervals_, rr_intervals_)[0, 1]
+    
+    #print("PP intervals:", PP_intervals_)
+    #print("RR intervals:", rr_intervals_)
+    #print("Correlation coefficient:", correlation)
+    
+    # Step 3: Check for Third-Degree AV Block
+    if abs(correlation) < 0.3 and len((PP_intervals)>len(rr_intervals):
+        return "Possible Third-Degree AV Block: weak/no correlation between P and QRS rhythms"
+    
+    return "Normal or Other Rhythm"
 
 def classify_heart_rate(heart_rate):
     if heart_rate > 100:
@@ -342,11 +367,11 @@ def main():
     ecg_data, ppg_data  = upload_and_process_ecg() #, ecg_rate, ppg_rate
     
     if ecg_data is not None:
-        pr_interval, r_peaks, ptt_value, t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, p_peaks, t_peaks = process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate )
-        classification = classify_av_block(pr_interval, r_peaks, ecg_rate)
+        pr_interval, r_peaks, ptt_value, t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, p_peaks, t_peaks, = process_ecg_ppg(ecg_data, ppg_data, ecg_rate, ppg_rate )
         heart_rate = 60 / np.mean(np.diff(r_peaks) / ecg_rate)
         heart_rate_classification = classify_heart_rate(heart_rate)
-        qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave = value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks, ecg_data)
+        qt_interval, rr_interval, pr_interval, pr_segment, st_segment, tp_segment, p_wave_a, r_wave_a, t_wave_a, p_wave, qrs_wave, t_wave,PP_intervals = value_analysis(t_offsets, t_onsets, r_onsets, r_offsets, p_onsets, p_offsets, r_peaks, p_peaks, t_peaks, ecg_data)
+        classification = classify_av_block(pr_interval, r_peaks, ecg_rate,p_peaks,PP_intervals)
         st.subheader("ECG Analysis Parameters")
         st.write("")
         st.write(f"  🩺PR Interval : :blue[{pr_interval}]")
